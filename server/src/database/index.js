@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize';
 
-import databaseConfig from '../config/database';
-
 import Admin from '../app/models/Admin';
+
+import databaseConfig from '../config/database';
 
 const models = [Admin];
 
