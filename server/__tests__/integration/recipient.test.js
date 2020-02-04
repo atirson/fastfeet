@@ -11,6 +11,7 @@ describe('Professional', () => {
 
   it('should be able create recipient', async () => {
     const recipient = await factory.create('Recipient');
+
     const response = await request(app)
       .post('/recipient')
       .send(recipient);
