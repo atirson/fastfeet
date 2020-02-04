@@ -1,0 +1,73 @@
+version: '3'
+
+services:
+  fastfeet-nodejs:
+    container_name: fastfeet
+    build: .
+    entrypoint: ['./init.sh']
+    volumes:
+      - .:/home/node/api
+      - /home/node/api/node_modules
+    depends_on:
+      - fastfeet-postgres
+      # - fastfeet-job
+      - fastfeet-mongo
+    networks:
+      - app-connect
+    ports:
+      - '3333:3333'
+
+  fastfeet-postgres:
+    container_name: fastfeet-postgres
+    image: postgres:11
+    volumes:
+      - fastfeet-postgres-data:/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    networks:
+      - app-connect
+    ports:
+      - '5432:5432'
+      
+  # fastfeet-job:
+  #   container_name: fastfeet-job
+  #   build: .
+  #   environment:
+  #     MAIL_HOST: ${MAIL_HOST}
+  #     MAIL_PORT: ${MAIL_PORT}
+  #     MAIL_USER: ${MAIL_USER}
+  #     MAIL_PASS: ${MAIL_PASS}
+  #   command: yarn queue
+  #   depends_on:
+  #     - fastfeet-redis
+  #   networks:
+  #     - app-connect
+
+  fastfeet-redis:
+    container_name: fastfeet-redis
+    image: redis:latest
+    volumes:
+      - fastfeet-redis-data:/data
+    networks:
+      - app-connect
+    ports:
+      - "6379:6379"
+
+  fastfeet-mongo:
+    container_name: fastfeet-mongo
+    image: mongo
+    volumes:
+      - fastfeet-mongo-data:/data
+    networks:
+      - app-connect
+
+volumes:
+  fastfeet-postgres-data:
+  fastfeet-redis-data:
+  fastfeet-mongo-data:
+
+networks:
+  app-connect:
+      driver: bridge
