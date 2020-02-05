@@ -10,10 +10,14 @@ describe('Professional', () => {
   });
 
   it('should be able create recipient', async () => {
-    const recipient = await factory.create('Recipient');
+    const recipient = await factory.attrs('Recipient');
 
     const response = await request(app)
-      .post('/recipient')
+      .post('/recipients')
+      .set(
+        'Authorization',
+        `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTgwOTQwNjUyLCJleHAiOjE1ODE1NDU0NTJ9.hxN4lHfsMWHDRmyI4Lu99vFQaSk_CqBOR7dNTfH5YRE`
+      )
       .send(recipient);
 
     expect(response.body).toHaveProperty('id');
