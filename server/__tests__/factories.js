@@ -1,9 +1,8 @@
 import faker from 'faker';
 import { factory } from 'factory-girl';
-import bcrypt from 'bcryptjs';
 
 import Recipient from '../src/app/models/Recipient';
-import Admin from '../src/app/models/Admin';
+import Courier from '../src/app/models/Courier';
 
 factory.define('Recipient', Recipient, {
   name: faker.name.findName(),
@@ -15,10 +14,10 @@ factory.define('Recipient', Recipient, {
   zipcode: faker.address.zipCode(),
 });
 
-factory.define('Admin', Admin, {
-  name: 'Distribuidora FastFeet',
-  email: 'admin@fastfeet.com',
-  password_hash: bcrypt.hashSync('123456', 8),
+factory.define('Courier', Courier, {
+  name: faker.name.findName(),
+  avatar_id: faker.image.avatar(),
+  email: faker.internet.email(),
 });
 
 export default factory;
