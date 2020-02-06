@@ -38,6 +38,27 @@ class CourierController {
 
     return res.json(courier);
   }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      email: Yup.string().email(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    const courier = await Courier.findByPk(req.params.id);
+
+    if (!courier) {
+      return res.status(401).json({ error: 'Courier does not exists.' });
+    }
+
+    await courier.update(req.body);
+
+    return res.json(courier);
+  }
 }
 
 export default new CourierController();
