@@ -8,8 +8,8 @@ factory.define('Recipient', Recipient, {
   name: faker.name.findName(),
   state: faker.address.state(),
   city: faker.address.city(),
-  street: faker.address.city(),
-  complement: faker.lorem.text(),
+  street: faker.address.streetName(),
+  complement: faker.address.secondaryAddress(),
   number: faker.random.number(),
   zipcode: faker.address.zipCode(),
 });
