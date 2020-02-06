@@ -18,4 +18,5 @@ routes.put('/recipients/:id', RecipientController.update);
 routes.post('/couriers', CourierController.store);
 routes.get('/couriers', CourierController.index);
 routes.put('/couriers/:id', CourierController.update);
+routes.delete('/couriers/:id', CourierController.delete);
 export default routes;
