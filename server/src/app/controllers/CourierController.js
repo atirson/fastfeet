@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import Courier from '../models/Courier';
+import File from '../models/File';
 
 class CourierController {
   async index(req, res) {
@@ -57,7 +58,17 @@ class CourierController {
 
     await courier.update(req.body);
 
-    return res.json(courier);
+    const { id, name, email, avatar } = await Courier.findByPk(courier.id, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json({ id, name, email, avatar });
   }
 
   async delete(req, res) {
