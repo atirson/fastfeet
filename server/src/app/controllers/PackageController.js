@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import { getHours, subHours } from 'date-fns';
 import Package from '../models/Package';
 
 class PackageController {
@@ -17,19 +16,8 @@ class PackageController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validations fails.' });
     }
-    const date = getHours(subHours(new Date(), 3));
 
-    if (!(date >= 8 && date < 18)) {
-      return res.status(401).json({ error: 'Error' });
-    }
-    const { recipient_id, deliveryman_id, product } = req.body;
-
-    const packager = await Package.create({
-      recipient_id,
-      deliveryman_id,
-      product,
-      start_date: new Date(),
-    });
+    const packager = await Package.create(req.body);
 
     return res.json(packager);
   }
