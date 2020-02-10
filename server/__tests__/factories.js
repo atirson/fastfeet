@@ -16,7 +16,6 @@ factory.define('Recipient', Recipient, {
 
 factory.define('Courier', Courier, {
   name: faker.name.findName(),
-  avatar_id: faker.image.avatar(),
   email: faker.internet.email(),
 });
 

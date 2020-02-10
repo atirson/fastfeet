@@ -6,6 +6,7 @@ import SessionController from './app/controllers/SessionController';
 import RecipientController from './app/controllers/RecipientController';
 import CourierController from './app/controllers/CourierController';
 import FileController from './app/controllers/FileController';
+import PackageController from './app/controllers/PackageController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -25,5 +26,7 @@ routes.put('/couriers/:id', CourierController.update);
 routes.delete('/couriers/:id', CourierController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
+
+routes.post('/packages', PackageController.store);
 
 export default routes;
