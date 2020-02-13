@@ -30,7 +30,7 @@ services:
       - app-connect
     ports:
       - '5432:5432'
-      
+
   # fastfeet-job:
   #   container_name: fastfeet-job
   #   build: .
