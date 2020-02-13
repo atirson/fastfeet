@@ -62,6 +62,9 @@ services:
       - fastfeet-mongo-data:/data
     networks:
       - app-connect
+    ports:
+      - '27017:27017'
+
 
 volumes:
   fastfeet-postgres-data:
